@@ -43,6 +43,10 @@ func (s *state) onReady() {
 	s.Cron = cron.New()
 	s.Cron.AddFunc("@every 30s", s.updatePrice)
 	s.Cron.Start()
+
+	for currency := range s.CurrencyNames {
+		s.MenuItems[currency] = systray.AddMenuItem(currency, "")
+	}
 }
 
 func (s *state) onExit() {
