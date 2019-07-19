@@ -24,7 +24,16 @@ type state struct {
 }
 
 func main() {
-	s := &state{}
+	s := &state{
+		SelectedCurrency: btc,
+		CurrencyNames: map[string]string{
+			btc: "bitcoin",
+			eth: "ethereum",
+			xrp: "ripple",
+			ltc: "litecoin",
+		},
+		MenuItems: map[string]*systray.MenuItem{},
+	}
 	systray.Run(s.onReady, s.onExit)
 }
 
