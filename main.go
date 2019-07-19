@@ -55,7 +55,7 @@ func (s *state) onExit() {
 
 func (s *state) updatePrice() {
 	client := &http.Client{Timeout: 10 * time.Second}
-	url := "https://coinmarketcap.com/currencies/bitcoin/"
+	url := "https://coinmarketcap.com/currencies/" + s.SelectedCurrency
 	response, err := client.Get(url)
 	if err != nil {
 		return
@@ -72,5 +72,5 @@ func (s *state) updatePrice() {
 	}
 
 	price := document.Find(".details-panel-item--price__value").Text()
-	systray.SetTitle("BTC $" + price)
+	systray.SetTitle(s.SelectedCurrency + " $" + price)
 }
