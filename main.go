@@ -47,6 +47,23 @@ func (s *state) onReady() {
 	for currency := range s.CurrencyNames {
 		s.MenuItems[currency] = systray.AddMenuItem(currency, "")
 	}
+
+	for {
+		select {
+		case <-s.MenuItems[btc].ClickedCh:
+			s.SelectedCurrency = btc
+			s.updatePrice()
+		case <-s.MenuItems[eth].ClickedCh:
+			s.SelectedCurrency = eth
+			s.updatePrice()
+		case <-s.MenuItems[xrp].ClickedCh:
+			s.SelectedCurrency = xrp
+			s.updatePrice()
+		case <-s.MenuItems[ltc].ClickedCh:
+			s.SelectedCurrency = ltc
+			s.updatePrice()
+		}
+	}
 }
 
 func (s *state) onExit() {
