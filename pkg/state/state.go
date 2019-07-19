@@ -1,11 +1,14 @@
 package state
 
 import (
+	"errors"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/getlantern/systray"
+	"github.com/getsentry/sentry-go"
 	"github.com/robfig/cron"
 )
 
@@ -24,6 +27,10 @@ type State struct {
 }
 
 func (s *State) OnReady() {
+	sentry.Init(sentry.ClientOptions{
+		Dsn: os.Getenv("SENTRY_DSN"),
+	})
+
 	s.UpdatePrice()
 
 	s.Cron = cron.New()
@@ -61,16 +68,19 @@ func (s *State) UpdatePrice() {
 	url := "https://coinmarketcap.com/currencies/" + s.CurrencyNames[s.SelectedCurrency]
 	response, err := client.Get(url)
 	if err != nil {
+		sentry.CaptureException(err)
 		return
 	}
 	defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
+		sentry.CaptureException(errors.New("Status code is not OK"))
 		return
 	}
 
 	document, err := goquery.NewDocumentFromReader(response.Body)
 	if err != nil {
+		sentry.CaptureException(err)
 		return
 	}
 
