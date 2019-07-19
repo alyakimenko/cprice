@@ -5,19 +5,31 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/getlantern/systray"
+	"github.com/robfig/cron"
 )
 
+type state struct {
+	Cron *cron.Cron
+}
+
 func main() {
-	systray.Run(onReady, onExit)
+	s := &state{}
+	systray.Run(s.onReady, s.onExit)
 }
 
-func onReady() {
-	getPrice()
+func (s *state) onReady() {
+	s.updatePrice()
+
+	s.Cron = cron.New()
+	s.Cron.AddFunc("@every 10s", s.updatePrice)
+	s.Cron.Start()
 }
 
-func onExit() {}
+func (s *state) onExit() {
+	s.Cron.Stop()
+}
 
-func getPrice() {
+func (s *state) updatePrice() {
 	url := "https://coinmarketcap.com/currencies/bitcoin/"
 	response, err := http.Get(url)
 	if err != nil {
