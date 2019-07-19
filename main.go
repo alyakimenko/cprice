@@ -55,7 +55,7 @@ func (s *state) onExit() {
 
 func (s *state) updatePrice() {
 	client := &http.Client{Timeout: 10 * time.Second}
-	url := "https://coinmarketcap.com/currencies/" + s.SelectedCurrency
+	url := "https://coinmarketcap.com/currencies/" + s.CurrencyNames[s.SelectedCurrency]
 	response, err := client.Get(url)
 	if err != nil {
 		return
