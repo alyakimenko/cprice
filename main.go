@@ -9,8 +9,18 @@ import (
 	"github.com/robfig/cron"
 )
 
+const (
+	btc = "BTC"
+	eth = "ETH"
+	xrp = "XRP"
+	ltc = "LTC"
+)
+
 type state struct {
-	Cron *cron.Cron
+	Cron             *cron.Cron
+	SelectedCurrency string
+	CurrencyNames    map[string]string
+	MenuItems        map[string]*systray.MenuItem
 }
 
 func main() {
