@@ -11,7 +11,7 @@ require (
 	github.com/getlantern/hidden v0.0.0-20190325191715-f02dbb02be55 // indirect
 	github.com/getlantern/ops v0.0.0-20190325191751-d70cb0d6f85f // indirect
 	github.com/getlantern/systray v0.0.0-20190626064521-f2fa635d0474
-	github.com/getsentry/sentry-go v0.1.3 // indirect
+	github.com/getsentry/sentry-go v0.1.3
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/oxtoacart/bpool v0.0.0-20190530202638-03653db5a59c // indirect
 	github.com/robfig/cron v1.2.0
