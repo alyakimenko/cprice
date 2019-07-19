@@ -41,7 +41,7 @@ func (s *state) onReady() {
 	s.updatePrice()
 
 	s.Cron = cron.New()
-	s.Cron.AddFunc("@every 10s", s.updatePrice)
+	s.Cron.AddFunc("@every 30s", s.updatePrice)
 	s.Cron.Start()
 }
 
