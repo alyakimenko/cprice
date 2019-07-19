@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/getlantern/systray"
@@ -30,8 +31,9 @@ func (s *state) onExit() {
 }
 
 func (s *state) updatePrice() {
+	client := &http.Client{Timeout: 10 * time.Second}
 	url := "https://coinmarketcap.com/currencies/bitcoin/"
-	response, err := http.Get(url)
+	response, err := client.Get(url)
 	if err != nil {
 		return
 	}
