@@ -33,6 +33,8 @@ func (s *State) OnReady() {
 	for currency := range s.CurrencyNames {
 		s.MenuItems[currency] = systray.AddMenuItem(currency, "")
 	}
+	systray.AddSeparator()
+	quit := systray.AddMenuItem("Quit", "")
 
 	for {
 		select {
@@ -48,6 +50,8 @@ func (s *State) OnReady() {
 		case <-s.MenuItems[LTC].ClickedCh:
 			s.SelectedCurrency = LTC
 			s.UpdatePrice()
+		case <-quit.ClickedCh:
+			systray.Quit()
 		}
 	}
 }
