@@ -1,6 +1,7 @@
 package state
 
 import (
+	"log"
 	"net/http"
 	"time"
 
@@ -65,16 +66,19 @@ func (s *State) UpdatePrice() {
 	url := "https://coinmarketcap.com/currencies/" + s.CurrencyNames[s.SelectedCurrency]
 	response, err := client.Get(url)
 	if err != nil {
+		log.Println(err.Error())
 		return
 	}
 	defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
+		log.Println(err.Error())
 		return
 	}
 
 	document, err := goquery.NewDocumentFromReader(response.Body)
 	if err != nil {
+		log.Println(err.Error())
 		return
 	}
 
