@@ -1,7 +1,7 @@
 # cprice
 
 Cryptocurrency systray widget written in Golang.  
-![demo](https://raw.githubusercontent.com/alyakimenko/cprice/master/assets/demo.png)
+![demo](https://raw.githubusercontent.com/alyakimenko/cprice/master/assets/app.png)
 
 ### Building
 ```bash
