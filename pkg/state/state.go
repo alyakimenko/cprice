@@ -82,6 +82,6 @@ func (s *State) UpdatePrice() {
 		return
 	}
 
-	price := document.Find(".details-panel-item--price__value").Text()
-	systray.SetTitle(s.SelectedCurrency + " $" + price)
+	price := document.Find(".cmc-details-panel-price__price").Text()
+	systray.SetTitle(s.SelectedCurrency + " " + price)
 }
